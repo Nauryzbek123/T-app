@@ -1,0 +1,63 @@
+.Header {
+   display: flex;
+   justify-content: start;
+   margin-top: 50px;
+  }
+
+  .Logo {
+    width: 70px;
+    height: 50px;
+  }
+
+.header-left-text{
+  margin-top: 14px;
+  margin-left: 30px;
+  display: flex;
+}
+.T-app{
+  font-weight: 400px;
+  font-size: 20px;
+  color: #0051FE;
+  font-family: Comfortaa, sans-serif;
+}
+
+.header-left-text > a{
+  margin-left: 15px;
+}
+.left-text{
+  margin-top: 3px;
+  font-weight: 600px;
+  font-size: 15px;
+  color: #18A0FB;
+  font-family: Montserrat, sans-serif;
+  text-decoration: none;
+}
+.left-text:hover{
+   text-decoration: underline;
+}
+
+.header-container-right{
+  display: flex;
+ 
+  margin-left: auto;
+}
+.header-container-right > a{
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  width: 130px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 10px;
+  border: 2px solid #18a0fb;
+}
+.blue-color {
+  background-color: #18A0FB;
+  margin-right: 20px; 
+  color: white; 
+}
+.white-color{
+  background-color: white;
+  margin-right: 20px;
+  color: #18A0FB;  
+}

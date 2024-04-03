@@ -1,0 +1,12 @@
+.ItemsMain{
+    width: 300px;
+    height: 481px;
+}
+
+.ImgContainer {
+    background-image: url('../../assets/img/photo.jpg'); /* Replace 'path/to/your/image.jpg' with the actual path to your image */
+    background-size: cover; /* Cover the entire container */
+    background-position: center; /* Center the image */
+    width: 200px; /* Set a width for the container */
+    height: 40%; /* Set a height for the container */
+}
