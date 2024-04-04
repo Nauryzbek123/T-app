@@ -1,0 +1,1 @@
+export {default as FooterCont} from "./Footer";

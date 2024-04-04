@@ -1,12 +1,67 @@
 .ItemsMain{
     width: 300px;
-    height: 481px;
+    height: 474px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .ImgContainer {
-    background-image: url('../../assets/img/photo.jpg'); /* Replace 'path/to/your/image.jpg' with the actual path to your image */
-    background-size: cover; /* Cover the entire container */
-    background-position: center; /* Center the image */
-    width: 200px; /* Set a width for the container */
-    height: 40%; /* Set a height for the container */
+    background-image: url('../../assets/img/photo.jpg');
+    background-size: cover; 
+    background-position: center; 
+    width: 100%; 
+    height: 65%; 
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+.MissingItem {
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 82px;
+    height: 35px;
+    background-color: white; 
+    color: #18A0FB;
+    border-radius: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.elementContainer{
+    width: 100%; 
+    height: 40%; 
+    background-color: #CCCCCC;
+    text-align: start;
+    color: #6464AD;
+
+}
+.elementContainer > p{
+    margin-top: 10px;
+    margin-left: 30px;
+    font-family: "Montserrat";
+    font-size: "15px";
+    font-weight: 500;
+    line-height: "18.29px";
+    text-align: "center";
+}
+.containerFooter{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items:center
+}
+.detail{
+    margin-left: 10px;
+    width: 93px;
+    height: 30px;
+    color:  #18A0FB;
+    border-radius: 22px;
+    border: 1px solid #18A0FB;
+    display: flex;
+    justify-content: center;
+    align-items:center;
 }
