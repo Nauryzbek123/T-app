@@ -9,12 +9,10 @@ import { FooterCont } from "../../components/Footer";
 const MainPage = () =>{
     return (
       <div>
-        <Header/>
         <FilterContainer/>
          <Items/>  
          <VideoPlayer/>
          <EmojiDesc/>
-         <FooterCont/>
       </div>
     )
   }

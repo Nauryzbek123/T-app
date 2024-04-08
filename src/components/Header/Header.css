@@ -38,8 +38,9 @@
 
 .header-container-right{
   display: flex;
- 
   margin-left: auto;
+  margin-right: 35px;
+
 }
 .header-container-right > a{
   text-align: center;

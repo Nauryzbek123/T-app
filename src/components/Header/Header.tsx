@@ -21,8 +21,11 @@ const Header: React.FC = () => {
 
       <div className="header-container-right">
         <a href="" className="blue-color">Language</a>
-        <a href=""  className="white-color">Log in</a>
-        <a href="" className="blue-color">Register</a>
+        
+        <a href="/login"  className="white-color">
+            Log in
+            </a>
+        <a href="/registration" className="blue-color">Register</a>
       </div>
     </header>
   );
