@@ -29,12 +29,14 @@ const App = () => {
         <Route path="/" element={<MainPageWithHeader />} />
         <Route path="login" element={<LoginPageWithHeader />} />
         <Route path="registration" element={<RegistrationPageWithHeader />} />
-        <Route path="userpage" element={<UserPage />} />
-        <Route index element={<DashboardPage />} />
-        <Route index element={<AddNotificationPage />} />
-        <Route index element={<HistoryPage />} />
-        <Route index element={<MessagePage />} />
-        <Route index element={<FaqPage />} />
+        <Route path="userpage" element={<UserPage />}>
+          <Route path="dashboard" element={<DashboardPage />} />
+          <Route path="addnotification" element={<AddNotificationPage />} />
+          <Route path="history" element={<HistoryPage />} />
+          <Route path="message" element={<MessagePage />} />
+          <Route path="faq" element={<FaqPage />} />
+        </Route>
+       
       </Routes>
       <FooterCont />
     </BrowserRouter>
@@ -60,7 +62,5 @@ const RegistrationPageWithHeader = () => (
     <RegistrationPage />
   </>
 );
-
-
 
 export default App;

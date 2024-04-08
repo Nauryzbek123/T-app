@@ -1,9 +1,7 @@
 import "./FaqPage.css";
 
 export const FaqPage = () =>{
-    return <div>
-        FaqPage
-    </div>
+    return <h1>fdjndjfnjndjnfd</h1>
 }
 
 export default FaqPage;
