@@ -21,6 +21,7 @@ import { HistoryPage } from "./pages/HistoryPage";
 import { MessagePage } from "./pages/MessagePage";
 import { FaqPage } from "./pages/FaqPage";
 import NavTabs from "./pages/UserPage/UserPage";
+import { UserPageHeader } from "./components/UserPageHeader";
 
 const App = () => {
   return (
@@ -30,11 +31,11 @@ const App = () => {
         <Route path="login" element={<LoginPageWithHeader />} />
         <Route path="registration" element={<RegistrationPageWithHeader />} />
         <Route path="userpage" element={<UserPage />}>
-          <Route path="dashboard" element={<DashboardPage />} />
-          <Route path="addnotification" element={<AddNotificationPage />} />
-          <Route path="history" element={<HistoryPage />} />
-          <Route path="message" element={<MessagePage />} />
-          <Route path="faq" element={<FaqPage />} />
+          <Route path="dashboard" element={<DashboardPageWithHeader />} />
+          <Route path="addnotification" element={<AddNotificationPageWithHeader />} />
+          <Route path="history" element={<HistoryPageWithHeader />} />
+          <Route path="message" element={<MessagePageWithHeader />} />
+          <Route path="faq" element={<FaqPageWithHeader />} />
         </Route>
        
       </Routes>
@@ -63,4 +64,38 @@ const RegistrationPageWithHeader = () => (
   </>
 );
 
+const DashboardPageWithHeader = () =>(
+  <>
+    <UserPageHeader/>
+    <DashboardPage />
+  </>
+);
+
+const AddNotificationPageWithHeader = () =>(
+  <>
+    <UserPageHeader/>
+    <AddNotificationPage />
+  </>
+);
+
+const HistoryPageWithHeader = () =>(
+  <>
+    <UserPageHeader/>
+    <HistoryPage />
+  </>
+);
+
+const MessagePageWithHeader = () =>(
+  <>
+    <UserPageHeader/>
+    <MessagePage />
+  </>
+);
+
+const FaqPageWithHeader = () =>(
+  <>
+    <UserPageHeader/>
+    <FaqPage />
+  </>
+);
 export default App;
