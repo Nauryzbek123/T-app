@@ -63,9 +63,12 @@
   height: 100px;
 }
 
-.tabContent {
-  width: 100%;
-}
+
+
+  .tabContent {
+    flex: 1;
+  }
+  
 
 .activeLink {
     background-color: white;

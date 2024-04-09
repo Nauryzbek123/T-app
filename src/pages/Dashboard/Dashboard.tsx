@@ -82,14 +82,13 @@ export const DashboardPage = () => {
           </div>
         </div>
       </div>
-      <p className="sectByCategoryTxt" style={{marginTop: "150px",marginLeft: "170px"}}>Recent lost and found property</p>
+      <p className="sectByCategoryTxt" style={{marginTop: "150px",marginLeft: "250px"}}>Recent lost and found property</p>
      <div className="ItemsLost">
      <LostItemsContainer/>
      <LostItemsContainer/>
      <LostItemsContainer/>
-
      </div>
-      
+      <br /><br /><br /><br /><br />
 
 
 

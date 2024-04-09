@@ -100,8 +100,8 @@ export const UserPage = () => {
       </div>
 
       <div className="tabContent">
-        <Outlet />
-      </div>
+      <Outlet />
+    </div>
     </div>
   );
 };

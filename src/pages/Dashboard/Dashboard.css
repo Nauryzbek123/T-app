@@ -61,6 +61,7 @@
     display: flex;
     justify-content: center;
     margin-top: 40px;
+    margin-left: -70px;
 }
 .TextWithIcon{
     margin-left: 150px;
@@ -74,7 +75,11 @@
     color:  #4147D5;
 }
 
-.ItemsLost{
+.ItemsLost {
     display: flex;
-    justify-content: start;
-}
+    justify-content: flex-start; 
+    flex-wrap: nowrap;
+    overflow-x: auto; 
+    margin-left: -250px;
+  }
+  
