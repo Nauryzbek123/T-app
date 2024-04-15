@@ -1,0 +1,44 @@
+.History{
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
+}
+.HistoryCont{
+    width: 1040px;
+    height: 440px;
+    margin-left: 40px;
+    margin-top: 40px;
+    background-color: #D7E0FF;
+    display: flex;
+    flex-direction: column;
+}
+.HistTxt{
+    font-family: 'Comfortaa';
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 33.45px;
+    letter-spacing: -0.015em;
+    color: #060606;
+    margin-left: 50px;
+    margin-bottom: 30px;
+}
+
+.HistInputTxt{
+    margin-left: 67px;
+    font-family: 'Comfortaa';
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 33.45px;
+    letter-spacing: -0.015em;
+    color: #060606;
+    margin-top: 10px;
+
+}
+
+.HistTxt.Completed {
+    color: #189A35;
+}
+
+.HistTxt.Progressing {
+    color: #C71111;
+}
