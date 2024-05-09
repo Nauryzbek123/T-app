@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import { Header } from "./components/Header";
@@ -11,9 +11,9 @@ import {
   useRoutes,
   Outlet,
 } from "react-router-dom";
-import { LoginPage } from "./pages/Login";
+import { LoginPage } from "./pages/Auth/Login";
 import { FooterCont } from "./components/Footer";
-import { RegistrationPage } from "./pages/Registration";
+import { RegistrationPage } from "./pages/Auth/Registration";
 import { UserPage } from "./pages/UserPage";
 import { DashboardPage } from "./pages/Dashboard";
 import { AddNotificationPage } from "./pages/AddNotification";
@@ -22,14 +22,28 @@ import { MessagePage } from "./pages/MessagePage";
 import { FaqPage } from "./pages/FaqPage";
 import NavTabs from "./pages/UserPage/UserPage";
 import { UserPageHeader } from "./components/UserPageHeader";
+import { getAccessToken } from "./utils/token";
+import { UserModel } from "./models/User.model";
 
 const App = () => {
+  const [token, setToken] = useState<string | null>(getAccessToken());
+  const [isLoading, setIsLoading] = useState(false);
+  const [user, setUser] = useState<UserModel | null>(null);
+
+  useEffect(() => {
+    if (token) {
+    } else {
+      setIsLoading(false);
+      setUser(new UserModel());
+    }
+  }, [token]);
   return (
     <BrowserRouter>
+    
       <Routes>
         <Route path="/" element={<MainPageWithHeader />} />
         <Route path="login" element={<LoginPageWithHeader />} />
-        <Route path="registration" element={<RegistrationPageWithHeader />} />
+        <Route path="registration" element={<RegistrationPageWithHeader/>} />
         <Route path="userpage" element={<UserPage />}>
           <Route path="dashboard" element={<DashboardPageWithHeader />} />
           <Route path="addnotification" element={<AddNotificationPageWithHeader />} />
@@ -60,7 +74,7 @@ const LoginPageWithHeader = () => (
 const RegistrationPageWithHeader = () => (
   <>
     <Header />
-    <RegistrationPage />
+    <RegistrationPage/>
   </>
 );
 
@@ -99,3 +113,5 @@ const FaqPageWithHeader = () =>(
   </>
 );
 export default App;
+
+

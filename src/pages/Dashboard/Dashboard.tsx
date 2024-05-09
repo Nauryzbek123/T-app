@@ -7,9 +7,7 @@ export const DashboardPage = () => {
   return (
     <div className="DashboardMain">
       <p className="WelcomeTxt">Welcome Dashboard !!!</p>
-      <div className="LatestStory">
-        <p className="latestStoryTxt">Latest story</p>
-        <div className="StoryCirclesMain">
+      <div className="StoryCirclesMain">
           <div className="StoryCircles"></div>
           <div className="StoryCircles"></div>
           <div className="StoryCircles"></div>
@@ -17,9 +15,7 @@ export const DashboardPage = () => {
           <div className="StoryCircles"></div>
           <div className="StoryCircles"></div>
         </div>
-      </div>
       <div className="SectionCategory">
-        <p className="sectByCategoryTxt">Section by category</p>
         <div className="RowCategory">
           <div className="TextWithIcon">
             <img
@@ -82,7 +78,6 @@ export const DashboardPage = () => {
           </div>
         </div>
       </div>
-      <p className="sectByCategoryTxt" style={{marginTop: "150px",marginLeft: "250px"}}>Recent lost and found property</p>
      <div className="ItemsLost">
      <LostItemsContainer/>
      <LostItemsContainer/>
