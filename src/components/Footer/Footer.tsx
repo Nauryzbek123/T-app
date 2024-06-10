@@ -4,6 +4,7 @@ import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { faCircle } from '@fortawesome/free-regular-svg-icons';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { faTelegram } from '@fortawesome/free-brands-svg-icons';
+import { Container } from 'react-bootstrap';
 
 const styleIcon = {
     color: '#000000',
@@ -14,6 +15,7 @@ const styleIcon = {
 const FooterCont: React.FC = () => {
   return (
     <footer className="footer">
+        <Container style={{ maxWidth: '1238px', padding: '20px' }}>
       <div className="first">
       <p>Mobile app</p>
         <p>Community</p>
@@ -30,6 +32,7 @@ const FooterCont: React.FC = () => {
         <p>Blog</p>
         <p>Resources</p>
       </div>
+        </Container>
       <div className="horizontal-line"></div>
        <div className="socialMedia">
        <FontAwesomeIcon icon={faInstagram} style={styleIcon} />

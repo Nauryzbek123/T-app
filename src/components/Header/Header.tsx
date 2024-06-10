@@ -1,34 +1,34 @@
-import "./Header.css";
+import React from 'react';
+import { Container, Navbar, Nav, Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 const Header: React.FC = () => {
-  return (
-    <header className="Header">
-        <img
-          src={require("../../assets/img/mainIcon.png")}
-          alt=""
-          className="Logo"
-        />
-      <div className="header-left-text">
-        <a className="T-app">T-AppScreen</a>
-        <a className="left-text" href="">Book & Notes </a>
-        <a className="left-text" href="">Keys</a>
-        <a className="left-text" href="">Phones</a>
-        <a className="left-text" href="">Documents</a>
-        <a className="left-text" href="">Bugs</a>
-        <a className="left-text" href="">Headphones</a>
-        <a className="left-text" href="">Watch</a>
-      </div>
+    const navigate = useNavigate();
 
-      <div className="header-container-right">
-        <a href="" className="blue-color">Language</a>
-        
-        <a href="/login"  className="white-color">
-            Log in
-            </a>
-        <a href="/registration" className="blue-color">Register</a>
-      </div>
-    </header>
-  );
+    const handleCreateAnnouncement = () => {
+        navigate('/create');
+    };
+
+    return (
+        <Navbar expand="lg" bg="dark" variant="dark" className="px-3">
+            <Container style={{ maxWidth: '1238px', padding: '20px' }}>
+                <Navbar.Brand className="ml-auto" href="/" style={{ color: 'white' }}>T-AppScreen</Navbar.Brand>
+                <Navbar.Toggle aria-controls="navbarNav" />
+                <Navbar.Collapse id="navbarNav" className="justify-content-end">
+                    <Nav className="mx-4">
+                        <Nav.Item>
+                            <Nav.Link href="/profile" style={{ color: 'white' }}>
+                                <FontAwesomeIcon icon={faUser} className="mr-2"/> My Profile
+                            </Nav.Link>
+                        </Nav.Item>
+                    </Nav>
+                    <Button variant="outline-light" className="mr-3" onClick={handleCreateAnnouncement}>Create Announcement</Button>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
+    );
 };
 
 export default Header;

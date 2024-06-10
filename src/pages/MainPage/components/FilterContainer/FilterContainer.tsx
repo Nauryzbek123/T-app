@@ -1,77 +1,135 @@
-import Search from "antd/es/input/Search";
-import "./FilterContainer.css";
-import { SearchBar } from "../../../../components/SearchBar";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
-import { faCalendar } from "@fortawesome/free-solid-svg-icons";
+import React from 'react';
+import { Form, Row, Col, Button } from 'react-bootstrap';
+import './FilterContainer.css';
 
-import { useState } from "react";
+const categories = [
+    'Books & Notes',
+    'Keys',
+    'Phones',
+    'Documents',
+    'Accessories',
+    'Bags',
+    'Headphones',
+    'Watch',
+];
 
-const FilterContainer = () => {
-  const [isChecked, setIsChecked] = useState(false);
+const types = ['found', 'lost'];
 
-  const handleRadioChange = () => {
-    setIsChecked(!isChecked);
-  };
-  return (
-    <div className="container">
-      <SearchBar />
-      <div className="FirstLine">
-        <div className="SmallContainer">
-          <p>Lost</p>
+interface FiltersProps {
+    filter: {
+        title: string;
+        type: string;
+        category: string;
+        location: string;
+        startDate: string;
+        endDate: string;
+    };
+    onFilterChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void;
+    onFindClick?: () => void;
+}
+
+const FilterContainer: React.FC<FiltersProps> = ({ filter, onFilterChange, onFindClick }) => {
+    return (
+        <div className="filters">
+            <Row className="align-items-center">
+                <Col>
+                    <Form.Group>
+                        <Form.Control
+                            type="text"
+                            placeholder="Search by Title"
+                            name="title"
+                            value={filter.title}
+                            onChange={onFilterChange}
+                            size="lg"
+                        />
+                    </Form.Group>
+                </Col>
+                <Col>
+                    <Button variant="primary" onClick={onFindClick} size="lg">Find</Button>
+                </Col>
+            </Row>
+            <h3 className="mt-5 mb-3">Filters</h3>
+            <Row className="align-items-center mb-3">
+                <Col>
+                    <Form.Group>
+                        <Form.Label>Type</Form.Label>
+                        <Form.Control
+                            as="select"
+                            name="type"
+                            value={filter.type}
+                            onChange={onFilterChange}
+                            className="mr-2"
+                        >
+                            <option value="all">All</option>
+                            {types.map((type) => (
+                                <option key={type} value={type}>{type}</option>
+                            ))}
+                        </Form.Control>
+                    </Form.Group>
+                </Col>
+                <Col>
+                    <Form.Group>
+                        <Form.Label>Category</Form.Label>
+                        <Form.Control
+                            as="select"
+                            name="category"
+                            value={filter.category}
+                            onChange={onFilterChange}
+                            className="mr-2"
+                        >
+                            <option value="all">All</option>
+                            {categories.map((category) => (
+                                <option key={category} value={category}>{category}</option>
+                            ))}
+                        </Form.Control>
+                    </Form.Group>
+                </Col>
+                <Col>
+                    <Form.Group>
+                        <Form.Label>Location</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="Location"
+                            name="location"
+                            value={filter.location}
+                            onChange={onFilterChange}
+                            className="mr-2"
+                        />
+                    </Form.Group>
+                </Col>
+            </Row>
+            <Row className="align-items-center">
+                <Col>
+                    <Row>
+                        <Col>
+                            <Form.Group>
+                                <Form.Label>Start Date</Form.Label>
+                                <Form.Control
+                                    type="date"
+                                    name="startDate"
+                                    value={filter.startDate}
+                                    onChange={onFilterChange}
+                                    className="mr-2"
+                                />
+                            </Form.Group>
+                        </Col>
+                        <Col>
+                            <Form.Group>
+                                <Form.Label>End Date</Form.Label>
+                                <Form.Control
+                                    type="date"
+                                    name="endDate"
+                                    value={filter.endDate}
+                                    onChange={onFilterChange}
+                                />
+                            </Form.Group>
+                        </Col>
+                    </Row>
+                </Col>
+            </Row>
+            <hr className="mt-4 mb-4"/>
         </div>
-        <input
-          type="radio"
-          value="option1"
-          checked={isChecked}
-          onChange={handleRadioChange}
-          className="radio"
-        />
-        
-        <div className="LocationContainer">
-          <p>Location</p>
-          <FontAwesomeIcon
-            icon={faMapMarkerAlt}
-            style={{
-              color: "#000000",
-              width: "25px",
-              height: "25px",
-              marginRight: "10px",
-            }}
-          />
-        </div>
-        <div className="LocationContainer">
-          <p>dd.mm.yyyy</p>
-          <FontAwesomeIcon
-            icon={faCalendar}
-            style={{
-              color: "#000000",
-              width: "25px",
-              height: "25px",
-              marginRight: "10px",
-            }}
-          />{" "}
-        </div>
-      </div>
-
-      <div className="FirstLine">
-      <div className="SmallContainer">
-          <p>Found</p>
-      </div> 
-      <input
-          type="radio"
-          value="option2"
-          checked={isChecked}
-          onChange={handleRadioChange}
-          className="radio"
-        />
-        <div className="SmallContainer">
-          <p>Submit</p>
-      </div> 
-      </div>
-      
-    </div>
-  );
+    );
 };
 
 export default FilterContainer;

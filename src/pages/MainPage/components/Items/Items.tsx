@@ -1,15 +1,21 @@
-import { ItemsContainer } from "../../../../components/ItemsContainer";
-import "./Items.css"
-export const Items = (
-    ) => {
-        return (
-          <div className="Items">
-            <ItemsContainer/>
-            <ItemsContainer/>
-            <ItemsContainer/>
-            
-          </div>
-        );
-      };
-    
-    export default Items;
+import React from 'react';
+import Item from '../Item/Item';
+import './Items.css';
+import {Item as ItemInterface} from '../../../../utils/interfaces'
+
+interface ItemsProps {
+    items: ItemInterface[];
+}
+
+const Items: React.FC<ItemsProps> = ({ items }) => {
+    return (
+        <div className="items-list">
+            <h2 className="mb-4">Found {items.length} announcements</h2>
+            {items.map((item) => (
+                <Item key={item.id} item={item}/>
+            ))}
+        </div>
+    );
+};
+
+export default Items;
