@@ -4,8 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './CreateAnnouncement.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Item, FormData } from "../../utils/interfaces";
+import { Item, FormData as FormDataa} from "../../utils/interfaces";
 import { SERVICE_URL } from "../../config";
+import {getAccessToken} from "../../utils/token";
 
 const categories = [
     'Books & Notes',
@@ -21,7 +22,7 @@ const categories = [
 const CreateAnnouncement: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
-    const [formData, setFormData] = useState<FormData>({
+    const [formData, setFormData] = useState<FormDataa>({
         title: '',
         category: categories[0],
         type: 'lost',
@@ -72,11 +73,40 @@ const CreateAnnouncement: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        const token = getAccessToken();
+        if (!token) {
+            // Handle token not found, maybe redirect to login page
+            return;
+        }
+
+        // Create a new FormData object
+        const data = new FormData();
+        data.append('title', formData.title);
+        data.append('category', formData.category);
+        data.append('type', formData.type);
+        data.append('description', formData.description);
+        data.append('location', formData.location);
+        data.append('date', formData.date);
+        formData.images.forEach((image, index) => {
+            data.append(`images[${index}]`, image);
+        });
+
         try {
             if (id) {
-                await axios.put(`${SERVICE_URL}/api/item/${id}`, formData);
+                await axios.post(`${SERVICE_URL}/api/item/${id}`, data, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
             } else {
-                await axios.post(`${SERVICE_URL}/api/items`, formData);
+                await axios.post(`${SERVICE_URL}/api/item`, data, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
             }
             navigate('/');
         } catch (error) {
