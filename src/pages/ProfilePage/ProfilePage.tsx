@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Tab, Tabs, Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ProfilePage.css';
 import Items from "../MainPage/components/Items/Items";
 import {Item} from "../../utils/interfaces";
 import axios from 'axios';
+import { getAccessToken, getUserId, getUserInfo } from '../../utils/token';
 
 
 const activeAnnouncements: Item[] = [
@@ -21,11 +22,19 @@ const archiveAnnouncements: Item[] = [
 
 const ProfilePage: React.FC = () => {
   const [key, setKey] = useState('active');
+  const id = getUserId();
   const [profileData, setProfileData] = useState({
     name: '',
-    phone: '',
-    email: ''
+    email: '',
+    phone: '', 
   });
+
+  useEffect(() => {
+    const userInfo = getUserInfo();
+    if (userInfo) {
+      setProfileData(userInfo);
+    }
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -38,17 +47,23 @@ const ProfilePage: React.FC = () => {
   const handleProfileSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('Profile data:', profileData);
-    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+    console.log('id',id);
     
-   
+    const token = getAccessToken();
+    if (!token) {
+        // Handle token not found, maybe redirect to login page
+        return;
+    }
     try {
-      const response = await axios.post(
-        'https://lost-and-found.kz/api/auth/register',
+      const response = await axios.put(
+        `https://lost-and-found.kz/api/user/${id}`,
         profileData,
         {
-          
+          headers: {
+              Authorization: `Bearer ${token}`
+          },
           withCredentials: true
-        }
+      }
       );
 
       console.log('Registration successful:', response.data);

@@ -1,33 +1,61 @@
-import { Button, Form, Input, message } from "antd";
+import React, { useState } from "react";
+import { Form, Button } from 'react-bootstrap';
+import axios from "axios";
 import "./Registration.css";
-import { useState } from "react";
-import { registration } from "../utils/fetch";
-import ProForm, { ProFormText } from "@ant-design/pro-form";
+import { useNavigate } from "react-router-dom";
+import { setAccessToken, setUserInfo } from "../../../utils/token";
 
-const style = {
-  width: "494px",
-  height: "40px",
-  marginLeft: "35px",
-  marginTop: "12px",
-  border: "1px solid rgba(0, 0, 0, 0.5)",
-};
 
 const RegistrationPage = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState(false);
-  const [passwordToken, setPasswordToken] = useState("");
-  const [data, setData] = useState<{
-    name?: string;
-    email?: string;
-    phone?: string;
-    password?: string;
-    password_confirmation?: string;
-  }>({});
+  const [profileData, setProfileData] = useState({
+    name: '',
+    phone: '',
+    email: '', 
+    password: '', 
+    password_confirmation: ''
+  });
+  // setUserInfo(profileData.name,profileData.email,profileData.phone);
 
-  const onSubmit = async (values: any) => {
-    setIsLoading(true);
+  const navigate = useNavigate();
 
-    registration(values);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setProfileData({
+      ...profileData,
+      [name]: value
+    });
   };
+
+  const handleProfileSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    console.log('reg:', profileData);
+
+    try {
+      const response = await axios.post(
+        'https://lost-and-found.kz/api/auth/register',
+        profileData,
+        {
+          withCredentials: true
+        }
+      );
+      console.log('Registration successful:', response);
+      const token = response.data?.token;
+      console.log('token:',token);
+      if(token){
+        setAccessToken(token); 
+        navigate('/')
+      }
+      // Handle successful registration (e.g., navigate to another page, show a success message)
+    } catch (error) {
+      console.error('Error during registration:', error);
+      // Handle registration error (e.g., show an error message)
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="main-Auth">
       <p className="large-txt">
@@ -36,73 +64,61 @@ const RegistrationPage = (): JSX.Element => {
       <div className="fieldCont">
         <div className="fields">
           <p>Sign up for a free account</p>
-          <ProForm
-            name="registration_form"
-            submitter={{
-              render: () => {
-                return <></>;
-              },
-            }}
-            onFinish={onSubmit}
-          >
-            <Form.Item
-              name="name"
-              rules={[{ required: true, message: 'Please enter your first name' }]}
-            >
-              <Input placeholder="First name" />
-            </Form.Item>
-            <Form.Item
-              name="name"
-              rules={[{ required: true, message: 'Please enter your last name' }]}
-            >
-              <Input placeholder="Last name" />
-            </Form.Item>
-            <Form.Item
-              name="email"
-              rules={[
-                { required: true, message: 'Please enter your email' },
-                { type: 'email', message: 'Please enter a valid email' }
-              ]}
-            >
-              <Input placeholder="Email address" />
-            </Form.Item>
-            <Form.Item
-              name="phone"
-              
-            >
-              <Input placeholder="Phone number" />
-            </Form.Item>
-            <Form.Item
-              name="password"
-              
-            >
-              <Input.Password placeholder="Create password" />
-            </Form.Item>
-            <Form.Item
-              name="password_confirmation"
-              rules={[
-                { required: true, message: 'Please confirm your password' },
-                ({ getFieldValue }) => ({
-                  validator(_, value) {
-                    if (!value || getFieldValue('password') === value) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject('The two passwords do not match');
-                  },
-                }),
-              ]}
-            >
-              <Input.Password placeholder="Confirm password" />
-            </Form.Item>
-            <Button
-                type="primary"
-                htmlType="submit"
-                loading={isLoading}
-                style={{ width: "130px" }}
-              >
-                Next
-              </Button>
-          </ProForm>
+          <Form onSubmit={handleProfileSubmit}>
+            <Form.Group controlId="name" className="mb-3">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type="text"
+                name="name"
+                value={profileData.name}
+                onChange={handleInputChange}
+                required
+              />
+            </Form.Group>
+            <Form.Group controlId="phone" className="mb-3">
+              <Form.Label>Phone</Form.Label>
+              <Form.Control
+                type="text"
+                name="phone"
+                value={profileData.phone}
+                onChange={handleInputChange}
+                required
+              />
+            </Form.Group>
+            <Form.Group controlId="email" className="mb-3">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                name="email"
+                value={profileData.email}
+                onChange={handleInputChange}
+                required
+              />
+            </Form.Group>
+            <Form.Group controlId="password" className="mb-3">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                name="password"
+                value={profileData.password}
+                onChange={handleInputChange}
+                required
+              />
+            </Form.Group>
+            <Form.Group controlId="password_confirmation" className="mb-3">
+              <Form.Label>Password Confirmation</Form.Label>
+              <Form.Control
+                type="password"
+                name="password_confirmation"
+                value={profileData.password_confirmation}
+                onChange={handleInputChange}
+                required
+              />
+            </Form.Group>
+            <Button variant="primary" type="submit" disabled={isLoading}>
+              {isLoading ? 'Loading...' : 'Save Changes'}
+            </Button>
+          </Form>
         </div>
       </div>
     </div>
