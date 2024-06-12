@@ -2,6 +2,7 @@ import React from 'react';
 import Item from '../Item/Item';
 import './Items.css';
 import {Item as ItemInterface} from '../../../../utils/interfaces'
+import { Pagination } from 'antd';
 
 interface ItemsProps {
     items: ItemInterface[];

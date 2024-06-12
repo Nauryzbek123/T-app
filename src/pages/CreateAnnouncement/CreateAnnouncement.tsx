@@ -97,7 +97,7 @@ const CreateAnnouncement: React.FC = () => {
                                 name="title"
                                 value={formData.title}
                                 onChange={handleInputChange}
-                                minLength={16}
+                                // minLength={16}
                                 required
                             />
                         </Form.Group>

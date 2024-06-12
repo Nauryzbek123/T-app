@@ -9,14 +9,17 @@ const Item: React.FC<ItemProps> = ({ item }) => {
 
     const handleClick = () => {
         navigate(`/item/${item.id}`);
-    };
+    }; 
+
+    const imageUrl = item.images && Object.values(item.images).length > 0 ? Object.values(item.images)[0].original_url : 'path/to/placeholder/image.png';
+
 
     return (
         <div onClick={handleClick} style={{ cursor: 'pointer' }}>
             <Card className="mb-3" style={{ width: '100%' }}>
                 <Card.Body>
                     <div className="d-flex">
-                        <Image src={item.images ? Object.values(item.images)[0].original_url : ''} rounded style={{ width: '150px', height: '150px', objectFit: 'cover' }} />
+                        <Image src={imageUrl} rounded style={{ width: '150px', height: '150px', objectFit: 'cover' }} />
                         <div className="px-4 flex-grow-1">
                             <Card.Title>{item.title}</Card.Title>
                             <Badge bg={item.type === 'Lost' ? 'danger' : 'success'}>{item.type}</Badge>

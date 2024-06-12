@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './ProfilePage.css';
 import Items from "../MainPage/components/Items/Items";
 import {Item} from "../../utils/interfaces";
+import axios from 'axios';
 
 
 const activeAnnouncements: Item[] = [
@@ -34,9 +35,28 @@ const ProfilePage: React.FC = () => {
     });
   };
 
-  const handleProfileSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleProfileSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('Profile data:', profileData);
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+    
+   
+    try {
+      const response = await axios.post(
+        'https://lost-and-found.kz/api/auth/register',
+        profileData,
+        {
+          
+          withCredentials: true
+        }
+      );
+
+      console.log('Registration successful:', response.data);
+      // Add any additional logic you need after successful registration
+    } catch (error) {
+      console.error('Error during registration:', error);
+      // Handle the error appropriately in your application
+    }
     // Add your profile update logic here
   };
 

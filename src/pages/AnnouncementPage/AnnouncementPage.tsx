@@ -39,7 +39,9 @@ const AnnouncementPage: React.FC = () => {
     return <p>Announcement not found.</p>;
   }
 
-  const imageUrl = announcement.images ? Object.values(announcement.images)[0].original_url : '';
+  // const imageUrl = announcement.images ? Object.values(announcement.images)[0].original_url : '';
+  const imageUrl = announcement.images && Object.values(announcement.images)[0]?.original_url ? Object.values(announcement.images)[0].original_url : '';
+
 
   const handleEdit = () => {
     navigate(`/edit/${id}`);
