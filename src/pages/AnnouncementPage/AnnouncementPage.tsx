@@ -7,6 +7,7 @@ import { faEdit, faCheckCircle, faTrash } from '@fortawesome/free-solid-svg-icon
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Item } from "../../utils/interfaces";
 import { SERVICE_URL } from "../../config";
+import {getAccessToken, getUserId} from "../../utils/token";
 
 const AnnouncementPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -42,17 +43,58 @@ const AnnouncementPage: React.FC = () => {
   // const imageUrl = announcement.images ? Object.values(announcement.images)[0].original_url : '';
   const imageUrl = announcement.images && Object.values(announcement.images)[0]?.original_url ? Object.values(announcement.images)[0].original_url : '';
 
-
   const handleEdit = () => {
     navigate(`/edit/${id}`);
   };
 
-  const handleComplete = () => {
-    // Handle complete functionality
+  const handleComplete = async () => {
+    const token = getAccessToken();
+    if (!token) {
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+          `${SERVICE_URL}/api/item/${id}/complete`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            },
+            withCredentials: true
+          }
+      );
+
+      console.log('Item marked as complete:', response.data);
+      // Update the announcement state or refetch the data
+        setAnnouncement((prev) => prev ? { ...prev, status: 'completed' } : null);
+    } catch (error) {
+      console.error('Error marking the item as complete:', error);
+    }
   };
 
-  const handleDelete = () => {
-    // Handle delete functionality
+  const handleDelete = async () => {
+    const token = getAccessToken();
+    if (!token) {
+      return;
+    }
+
+    try {
+      const response = await axios.delete(
+          `${SERVICE_URL}/api/item/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            },
+            withCredentials: true
+          }
+      );
+
+      console.log('Item deleted:', response.data);
+      navigate('/');
+    } catch (error) {
+      console.error('Error deleting the item:', error);
+    }
   };
 
   const openModal = (image: string) => {
@@ -64,8 +106,6 @@ const AnnouncementPage: React.FC = () => {
     setShowModal(false);
     setModalImage(null);
   };
-
-  const isAuthor = true; // Replace with actual check if the user is the author
 
   return (
       <Container style={{ maxWidth: '1238px', padding: '20px' }} className="mb-5">
@@ -93,7 +133,7 @@ const AnnouncementPage: React.FC = () => {
                 </ListGroup>
               </Card.Body>
             </Card>
-            {isAuthor && (
+            {announcement.user?.id == getUserId()?.id && (
                 <div className="mt-3 d-flex">
                   <Button variant="primary" onClick={handleEdit}>
                     <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit
