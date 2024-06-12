@@ -64,29 +64,29 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="main-Auth">
-      <p className="large-txt">
-        The largest community <br /> of photo enthusiasts
-      </p>
-      <div className="fieldCont">
+    <div className="main-Auth d-flex justify-content-center">
         <div className="fields">
           <p>Log in to your account</p>
           <Form onFinish={handleProfileSubmit}>
-            <Input
-              placeholder="Email address or call number"
-              style={style}
-              name="email"
-              value={profileData.email}
-              onChange={handleInputChange}
-            />
-            <Input
-              placeholder="Password"
-              style={style}
-              type="password"
-              name="password"
-              value={profileData.password}
-              onChange={handleInputChange}
-            />
+            <div>
+              <Input
+                placeholder="Email address or call number"
+                style={style}
+                name="email"
+                value={profileData.email}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              <Input
+                placeholder="Password"
+                style={style}
+                type="password"
+                name="password"
+                value={profileData.password}
+                onChange={handleInputChange}
+              />
+            </div>
             <Button
               htmlType="submit"
               style={{
@@ -107,7 +107,6 @@ export const LoginPage = () => {
             </Button>
           </Form>
         </div>
-      </div>
     </div>
   );
 };

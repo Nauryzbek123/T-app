@@ -41,7 +41,7 @@ const Header: React.FC = () => {
                 <Navbar.Brand className="ml-auto" href="/" style={{ color: 'white' }}>T-AppScreen</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarNav" />
                 <Navbar.Collapse id="navbarNav" className="justify-content-end">
-                    <Nav className="mx-4">
+                    <Nav>
                         {token ? (
                             <>
                                 <Nav.Item>
@@ -49,19 +49,19 @@ const Header: React.FC = () => {
                                         <FontAwesomeIcon icon={faUser} className="mr-2"/> My Profile
                                     </Nav.Link>
                                 </Nav.Item>
-                                <Button variant="outline-light" className="mr-3" onClick={handleCreateAnnouncement}>Create Announcement</Button>
+                                <Button variant="outline-light" className="mx-3" onClick={handleCreateAnnouncement}>Create Announcement</Button>
                                 <Button variant="outline-light" className="mr-3" onClick={handleLogout}>Log Out</Button>
                             </>
                         ) : (
                            <>
-                            <Nav.Item>
+                            <Nav.Item className="mx-3">
                                 <Nav.Link href="/registration" style={{ color: 'white' }}>
-                                    <FontAwesomeIcon icon={faUser} className="mr-1"/>Register
+                                    Register
                                 </Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
                             <Nav.Link href="/login" style={{ color: 'white' }}>
-                                <FontAwesomeIcon icon={faUser} className="mr-1"/>Login
+                                Login
                             </Nav.Link>
                         </Nav.Item>
                            </>

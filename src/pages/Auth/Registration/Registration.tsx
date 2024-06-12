@@ -57,11 +57,7 @@ const RegistrationPage = (): JSX.Element => {
   };
 
   return (
-    <div className="main-Auth">
-      <p className="large-txt">
-        The largest community <br /> of photo enthusiasts
-      </p>
-      <div className="fieldCont">
+    <div className="main-Auth d-flex justify-content-center">
         <div className="fields">
           <p>Sign up for a free account</p>
           <Form onSubmit={handleProfileSubmit}>
@@ -120,7 +116,6 @@ const RegistrationPage = (): JSX.Element => {
             </Button>
           </Form>
         </div>
-      </div>
     </div>
   );
 };
