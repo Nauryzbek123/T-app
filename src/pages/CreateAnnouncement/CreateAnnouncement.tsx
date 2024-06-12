@@ -94,7 +94,7 @@ const CreateAnnouncement: React.FC = () => {
 
         try {
             if (id) {
-                await axios.post(`${SERVICE_URL}/api/item/${id}`, data, {
+                await axios.put(`${SERVICE_URL}/api/item/${id}`, data, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'multipart/form-data'

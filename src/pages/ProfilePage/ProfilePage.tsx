@@ -46,17 +46,8 @@ const ProfilePage: React.FC = () => {
           withCredentials: true
         });
 
-        if (Array.isArray(activeResponse.data)) {
-          setActiveAnnouncements(activeResponse.data);
-        } else {
-          console.error('Active announcements data is not an array:', activeResponse.data);
-        }
-
-        if (Array.isArray(archiveResponse.data)) {
-          setArchiveAnnouncements(archiveResponse.data);
-        } else {
-          console.error('Archive announcements data is not an array:', archiveResponse.data);
-        }
+        setActiveAnnouncements(activeResponse.data.data);
+        setArchiveAnnouncements(archiveResponse.data.data);
       } catch (error) {
         console.error('Error fetching announcements:', error);
       }
@@ -87,7 +78,7 @@ const ProfilePage: React.FC = () => {
     }
     try {
       const response = await axios.put(
-        `https://lost-and-found.kz/api/user/${id}`,
+        `https://lost-and-found.kz/api/user/${id?.id}`,
         profileData,
         {
           headers: {
