@@ -8,7 +8,7 @@ export const fetchItems = (
     onError?: () => void,
     onFinish?: () => void
   ) => {
-    const url = `https://lost-and-found.kz/api/item?page=${page}`;
+    const url = `https://lost-and-found.kz/api/item?page=${page}&filter[status]=progressing`;
   
     axios.get(url)
         .then((response) => {

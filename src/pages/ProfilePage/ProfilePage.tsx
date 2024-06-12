@@ -6,19 +6,7 @@ import Items from "../MainPage/components/Items/Items";
 import {Item} from "../../utils/interfaces";
 import axios from 'axios';
 import { getAccessToken, getUserId, getUserInfo } from '../../utils/token';
-
-
-const activeAnnouncements: Item[] = [
-  { id: 4, images: {0: {original_url: require("../../assets/img/mainIcon.png")}}, date: '2023-04-01', title: 'Lost Phone', location: 'Park', type: 'Lost', category: 'Phones' },
-  { id: 4, images: {0: {original_url: require("../../assets/img/mainIcon.png")}}, date: '2023-04-01', title: 'Found Keys', location: 'Library', type: 'Found', category: 'Keys' },
-  // Add more announcements as needed
-];
-
-const archiveAnnouncements: Item[] = [
-  { id: 4, images: {0: {original_url: require("../../assets/img/mainIcon.png")}}, date: '2023-04-01', title: 'Lost Book', location: 'Cafeteria', type: 'Lost', category: 'Books & Notes' },
-  { id: 4, images: {0: {original_url: require("../../assets/img/mainIcon.png")}}, date: '2023-04-01', title: 'Found Watch', location: 'Gym', type: 'Found', category: 'Watch' },
-  // Add more announcements as needed
-];
+import {SERVICE_URL} from "../../config";
 
 const ProfilePage: React.FC = () => {
   const [key, setKey] = useState('active');
@@ -28,11 +16,54 @@ const ProfilePage: React.FC = () => {
     email: '',
     phone: '', 
   });
+  const [activeAnnouncements, setActiveAnnouncements] = useState<Item[]>([]);
+  const [archiveAnnouncements, setArchiveAnnouncements] = useState<Item[]>([]);
 
   useEffect(() => {
     const userInfo = getUserInfo();
     if (userInfo) {
       setProfileData(userInfo);
+    }
+
+    const fetchAnnouncements = async () => {
+      const token = getAccessToken();
+      if (!token) {
+        return;
+      }
+
+      try {
+        const activeResponse = await axios.get(`${SERVICE_URL}/api/item?filter[status]=progressing&filter[user_id]=${id?.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+          withCredentials: true
+        });
+
+        const archiveResponse = await axios.get(`${SERVICE_URL}/api/item?filter[status]=completed&filter[user_id]=${id?.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+          withCredentials: true
+        });
+
+        if (Array.isArray(activeResponse.data)) {
+          setActiveAnnouncements(activeResponse.data);
+        } else {
+          console.error('Active announcements data is not an array:', activeResponse.data);
+        }
+
+        if (Array.isArray(archiveResponse.data)) {
+          setArchiveAnnouncements(archiveResponse.data);
+        } else {
+          console.error('Archive announcements data is not an array:', archiveResponse.data);
+        }
+      } catch (error) {
+        console.error('Error fetching announcements:', error);
+      }
+    };
+
+    if (id) {
+      fetchAnnouncements();
     }
   }, []);
 
